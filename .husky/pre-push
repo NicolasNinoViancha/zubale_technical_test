@@ -1,0 +1,25 @@
+yarn verify-branch-name
+yarn test
+blocked_branches=("main" "development")
+branch_to_push=$(git rev-parse --abbrev-ref HEAD)
+if [[ " ${blocked_branches[@]} " =~ " ${branch_to_push} " ]]; then
+  echo ""
+  printf '\033[31m=%.0s\033[0m' {1..70}
+  echo ""
+  echo "\033[31m                       🚫Action blocked🚫\033[0m"
+  echo "\033[31mYou cannot push to the branch: ${branch_to_push}.\033[0m"
+  echo "\033[33mPlease push to a development branch, such as '<type>/zubale-<serialNumber>-<branchName>'\033[0m"
+  echo "\033[33mFor more details, please refer to the development team's documentation.\033[0m"
+  printf '\033[31m=%.0s\033[0m' {1..70}
+  echo "\n"
+  exit 1
+fi
+echo ""
+printf '\033[32m=%.0s\033[0m' {1..50}
+echo "\033[32m\n                ✅ PR template\033[0m"
+printf '\033[32m=%.0s\033[0m' {1..50}
+echo ""
+yarn generate-pr-template
+echo ""
+printf '\033[32m=%.0s\033[0m' {1..50}
+echo ""
