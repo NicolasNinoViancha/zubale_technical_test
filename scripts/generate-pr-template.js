@@ -176,7 +176,7 @@ function main() {
       description:
         'The branch against which the current branch is compared (default "Develop")',
       type: 'string',
-      default: 'Develop',
+      default: 'development',
     })
     .option('ticketLink', {
       alias: 'link',
