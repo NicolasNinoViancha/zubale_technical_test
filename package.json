@@ -10,7 +10,7 @@
     "start": "react-native start --reset-cache",
     "start-development": "APP_ENV=development npx react-native start --reset-cache",
     "start-production": "APP_ENV=production npx react-native start --reset-cache",
-    "test": "jest",
+    "test": "cp .env.development .env && jest",
     "prepare": "husky",
     "commitlint": "commitlint --edit",
     "generate-pr-template": "node ./scripts/generate-pr-template.js",
