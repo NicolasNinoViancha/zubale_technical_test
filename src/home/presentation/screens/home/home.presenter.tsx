@@ -1,16 +1,16 @@
-import {View, Text} from 'react-native';
-import {HomeScreenModels} from './home.models';
-import {NavigationModels} from '@shared/navigation';
-import {styles} from './home.styles';
+import HomeComponent from './home.component';
+import {useGetListPost} from '@home/presentation/hooks';
 
-const HomePresenter = ({navigation}: HomeScreenModels.PresenterProps) => {
+const HomePresenter = () => {
+  const {isLoadingPosts, isFirstLoadingPosts, posts, isErrorPosts, getListPost} = useGetListPost();
   return (
-    <View style={styles.container}>
-      <Text>Home Screen</Text>
-      <Text onPress={() => navigation.navigate(NavigationModels.MAIN_ROUTES_NAMES.SEARCH)}>
-        Go Details
-      </Text>
-    </View>
+    <HomeComponent
+      isFirstLoading={isFirstLoadingPosts}
+      isLoading={isLoadingPosts}
+      isError={isErrorPosts}
+      data={posts}
+      onErrorRetry={getListPost}
+    />
   );
 };
 

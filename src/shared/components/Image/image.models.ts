@@ -2,12 +2,12 @@
 import {StyleProp, ViewStyle, ImageResizeMode} from 'react-native';
 
 export namespace ImageComponentModels {
-  export type typeImage = 'default';
+  export type typeImage = 'default' | 'user' | 'media';
 
   export type Props = {
     testID?: string;
     containerStyles?: StyleProp<ViewStyle>;
-    source: string;
+    source?: string;
     type?: typeImage;
     //priority?: Priority;
     //resizeMode?: ResizeMode;
