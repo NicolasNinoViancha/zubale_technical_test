@@ -1,9 +1,9 @@
 import axios, {AxiosInstance, AxiosResponse} from 'axios';
 import {HttpClientModels} from './http.client.models';
-import {HttpClientError} from './errors';
+import {HttpClientError} from '../errors';
 import {ENV_API_URL} from '@env';
 
-class HttpClient implements HttpClientModels.HttpClient {
+export class HttpClient implements HttpClientModels.HttpClient {
   private _fetchInstance: AxiosInstance;
   private readonly _TIME_OUT = 5000;
   constructor() {
@@ -41,5 +41,3 @@ class HttpClient implements HttpClientModels.HttpClient {
     return response.data;
   }
 }
-
-export default new HttpClient();
