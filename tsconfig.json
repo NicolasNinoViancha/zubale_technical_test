@@ -1,3 +1,18 @@
 {
-  "extends": "@react-native/typescript-config"
+  "extends": "@react-native/typescript-config",
+  "compilerOptions": {
+    "typeRoots": ["node_modules/@types", "./types"],
+    "baseUrl": "./",
+    "paths": {
+      "@shared/*": ["src/shared/*"],
+      "@assets/*": ["src/assets/*"],
+      "@core/*": ["src/core/*"],
+      "@search/*": ["src/search/*"],
+      "@home/*": ["src/home/*"],
+      "@marketplace/*": ["src/marketplace/*"],
+      "@reels/*": ["src/reels/*"],
+      "@profile/*": ["src/profile/*"]
+    }
+  },
+  "exclude": ["node_modules", "babel.config.js", "metro.config.js", "jest.config.js"]
 }

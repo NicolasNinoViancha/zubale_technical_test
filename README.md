@@ -1,97 +1,184 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# 🚀 Zubale Technical Test
 
-# Getting Started
+Create instagram clone.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+https://662029f13bf790e070af2cd8.mockapi.io/api/v1
 
-## Step 1: Start Metro
+---
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+## 📑 Table of Contents
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+- [Introduction](#introduction)
+- [Installation](#installation)
+- [Usage](#usage)
+  - [For development env in android](#for-development-env-in-android)
+  - [For production env in android](#for-production-env-in-android)
+  - [For development env in IOS](#for-development-env-in-ios)
+  - [For production env in IOS](#for-production-env-in-ios)
+- [Architecture](#architecture)
+  - [Layers](#layers)
+  - [Special Directories](#special-directories)
+- [Key Highlights](#keyhighlights)
+- [Areas for Improvement](#areasforimprovement)
+- [Developer Contact](#-developer-contact)
 
-```sh
-# Using npm
-npm start
+---
 
-# OR using Yarn
-yarn start
+### Introduction
+
+For more details, check out the [Usage](#usage) section.
+Welcome to **Zubale Technical Test**. This project is presented as a solution to the technical test for the React Native developer position at the company **Zubale**. Below is a detailed explanation of how to set up and run the project.
+
+---
+
+### Installation
+
+To run the project, please follow the guidelines provided in the official [**React Native**](https://reactnative.dev) documentation for version [**0.80.0**](https://reactnative.dev/docs/environment-setup) It will be assumed that you have already completed this setup and verified that it works correctly.
+
+The project has two development environments: **production** and **development**, each with its corresponding environment variables file. For the project to work properly, you must create two .env files in the root directory, as described below:
+
+.env.development for the development environment with the following content:
+
+```
+ENVIRONMENT=development
+API_URL=https://662029f13bf790e070af2cd8.mockapi.io/api/v1
 ```
 
-## Step 2: Build and run your app
+.env.production for the production environment with the following content:
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+```
+ENVIRONMENT=production
+API_URL=https://662029f13bf790e070af2cd8.mockapi.io/api/v1
+```
 
-### Android
+Next, you will need to install the project dependencies. The following versions of package managers and tools were used in this project:
 
-```sh
-# Using npm
-npm run android
+- yarn: 3.6.4
+- node: 20.8.0
+- cocoapods or pod: 1.16.2
+- ruby: ruby 2.7.6p219 [arm64-darwin22]
 
-# OR using Yarn
+For convenience, it is recommended to use nvm for managing Node.js versions and rbenv for managing Ruby versions.
+
+To maintain consistency in the environment configuration, Corepack was used and a local Yarn version was set up.
+
+---
+
+### Usage
+
+As mentioned earlier, this project includes two development environments: production and development.
+Environment separation was implemented using the [**react-native-dotenv**](https://www.npmjs.com/package/react-native-dotenv) library, which allows managing environment variables through `.env` files loaded at build time.
+
+To run any development environment, open a terminal and execute the following command:
+
+for development env
+
+```bash
+yarn start-development
+```
+
+for production env
+
+```bash
+yarn start-production
+```
+
+Next, in a separate terminal, you must run the command corresponding to the platform you want to compile. For example:
+
+#### `android`
+
+```bash
 yarn android
 ```
 
-### iOS
+#### `ios`
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
-bundle exec pod install
-```
-
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
-
-```sh
-# Using npm
-npm run ios
-
-# OR using Yarn
+```bash
 yarn ios
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+---
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+### Architecture
 
-## Step 3: Modify your app
+For this project, a **layered architecture** was used, based on **Clean Architecture** principles and **Domain-Driven Design (DDD)**. The structure consists of the following layers:
 
-Now that you have successfully run the app, let's make changes!
+#### Layers
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+- **`domain`**
+  This is the most important layer, containing the core business logic, as well as contracts for use cases and repositories for each module.
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+- **`application`**
+  This layer holds the implementation of use cases for each module.
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+- **`infrastructure`**
+  This layer contains the implementation of repositories, DTOs, and adapters.
 
-## Congratulations! :tada:
+- **`presenter`**
+  This layer handles all UI-related concerns of the module. It includes framework-specific implementations such as:
 
-You've successfully run and modified your React Native App. :partying_face:
+  - Hooks
+  - Components
+  - Utilities
+  - Screens
 
-### Now what?
+<img src="src/assets/docs/architectureProyect.png" alt="architecture proyect" width="300"/>
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+#### Special Directories
 
-# Troubleshooting
+- **`core`**
+  Contains configuration logic for libraries and application-wide handlers.
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+- **`shared`**
+  Holds common UI-related elements such as:
 
-# Learn More
+  - Reusable components
+  - Utilities
+  - Custom hooks
+  - Navigation logic
+  - Theming system
 
-To learn more about React Native, take a look at the following resources:
+---
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+### Key Highlights
+
+The following points stand out in the implementation of the project:
+
+- **Implementation multi-env**, allowing customized handling of each environment.
+- **Implementation of Git flow** using `commitlint` for semantic commit verification, Git hooks with `husky` for executing scripts that check branch naming conventions and run tests on pre-push actions, and a script for the automatic generation of the pull request template.
+- **Separation of project structure into layers** based on the principles of Domain-Driven Design (DDD) and Clean Architecture.
+- **Implementation of the Presenter pattern** to separate business logic from UI representation.
+- **Configuration of Jest** for running tests.
+- **Implementation of the Repository pattern** for handling network requests.
+- **Implementation of the Facade pattern** to abstract Axios and provide custom control over request execution.
+- **Implementation of the Adapter pattern** to translate or change of one model to other.
+- **Implementation of namespaces** for managing models.
+- **Implementation of yarn with corepack** for manage consist of application setup.
+
+---
+
+### Areas for Improvement
+
+The following aspects can be considered as points for improvement in the project implementation:
+
+- Implementation of a test suite using **`react-native-testing-library`**, which is currently the recommended testing library according to the official documentation. An 80% code coverage can be considered acceptable, with a focus on testing business logic (use cases and infrastructure).
+- Improvement of API requests using **`react-query`**, which provides an abstraction layer for request generation and enables caching of data.
+- Implementation ci/cd flow with **`fastlane`** and github actions.
+
+---
+
+### 👤 Developer Contact
+
+<table>
+  <tr>
+    <td style="vertical-align: middle; text-align: center;">
+      <img src="https://avatars.githubusercontent.com/u/70112565?v=4" alt="Avatar" style="border-radius: 50%; width: 100px;">
+    </td>
+    <td style="vertical-align: middle; padding-left: 20px;">
+      <p>Nicolas Niño</p>
+      <p>📧 <strong>Email:</strong> <a href="mailto:nicolasemilionino@hotmail.com">nicolasemilionino@hotmail.com</a></p>
+      <p>🐱 <strong>GitHub:</strong> <a href="https://github.com/NicolasNinoViancha" target="_blank">nicolasNinoViancha</a></p>
+      <p>💼 <strong>LinkedIn:</strong> <a href="www.linkedin.com/in/nicolas-emilio-nino-viancha-3169a61b0" target="_blank">nicolasNinoViancha</a></p>
+    </td>
+  </tr>
+</table>
