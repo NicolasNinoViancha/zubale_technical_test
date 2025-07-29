@@ -13,7 +13,7 @@ export class PostAdapter {
     return {
       id: dto.id,
       content: dto.image ?? '',
-      user: PostAdapter.UserPostFromDto(dto),
+      author: PostAdapter.AuthorPostFromDto(dto),
       likes: dto.likes ?? 0,
       saved: dto.saved ?? false,
       liked: dto.liked ?? false,
@@ -22,7 +22,7 @@ export class PostAdapter {
       creationDate: dto.createdAt ? new Date(dto.createdAt) : new Date(),
     };
   }
-  static UserPostFromDto(dto: PostDto): PostEntity['user'] {
+  static AuthorPostFromDto(dto: PostDto): PostEntity['author'] {
     return {
       name: dto.name ?? '',
       avatar: dto.avatar ?? '',

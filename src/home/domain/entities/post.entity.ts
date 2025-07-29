@@ -1,4 +1,4 @@
-interface PostUser {
+interface PostAuthor {
   name: string;
   avatar: string;
 }
@@ -6,7 +6,7 @@ interface PostUser {
 export interface PostEntity {
   id: string;
   content: string;
-  user: PostUser;
+  author: PostAuthor;
   likes: number;
   saved: boolean;
   liked: boolean;
